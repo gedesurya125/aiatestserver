@@ -4,6 +4,7 @@ require("dotenv").config({
 
 const express = require("express"); //import express
 const fs = require("fs");
+const path = require("path");
 const morgan = require("morgan");
 const cors = require("cors");
 const errorHandler = require('./middlewares/errorHandler/errorHandler');
@@ -13,6 +14,15 @@ const app = express(); //create express app
 
 app.use(cors()); // enable cors
 app.use(errorHandler);
+/* Enable req.body */
+app.use(express.json()); // Enable req.body JSON
+// Enable url-encoded
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
 
 if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
   app.use(morgan("dev"));
@@ -46,6 +56,7 @@ app.all("*", (req, res, next) => {
   }
 });
 
+console.log('ENVIRONTMENT', process.env.NODE_ENV);
 //=============================================
 
 const PORT = process.env.PORT || 5000;
