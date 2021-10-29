@@ -43,6 +43,13 @@ if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
 //   res.send('HELLO WORLD')
 // })
 
+app.get("/", (req,res, next) => {
+  try{
+    res.redirect("https://documenter.getpostman.com/view/14200702/UV5f7tMo");
+  }catch(err){
+    next(err)
+  }
+})
 
 app.use("/images", images);
 
